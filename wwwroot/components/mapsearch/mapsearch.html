@@ -1,0 +1,61 @@
+﻿<link rel="stylesheet" href="../../css/additional-info-div.css" />
+<div class="container-fluid">
+    <br />
+    <form name="form">
+        <div class="row">
+            <div class="d-inline-block col-md-2">
+                <select class="input-base select-single" ng-model="offerType.model"
+                        ng-options="opt.id as opt.name for opt in offerType.availableOptions"></select>
+            </div>
+            <div class="d-inline-block col-md-2">
+                <div multiple-dropdown data="propertyType" sign="'select type'"></div>
+            </div>
+            <div class="d-inline-block col-md-4">
+                <input ng-required="form.city.$dirty" type="text" name="city" id="city" class="input-base input-single form-control"
+                       ng-autocomplete ng-model="city" geo-result="geoResult" placeholder="Enter location:" />
+                <span ng-show="form.city.$dirty && form.city.$error.notexists" class="error-span">Location is not exist<br /></span>
+            </div>
+            <div class="d-inline-block col-md-1">
+                <input type="text" ng-required="" class="input-base input-single form-control" ng-model="priceFrom" placeholder="pr. from" />
+            </div>
+            <div class="d-inline-block col-md-1">
+                <input type="text" ng-required="" class="input-base input-single form-control" ng-model="priceTill" placeholder="pr. till" />
+            </div>
+            <div class="d-inline-block col-md-1 mb-1">
+                <button class="btn btn-block btn-info h-100" ng-click="hasFilters = !hasFilters">more filters</button>
+            </div>
+            <div class="d-inline-block col-md-1 mb-1">
+                <button type="submit" ng-disabled="form.$invalid" class="btn btn-block btn-success h-100" ng-click="search()"><b>SEARCH</b></button>
+            </div>
+        </div>
+
+        <br />
+        <div ng-show="hasFilters" ng-include src="'components/_templates/additional-filter-div.html'"></div>
+
+    </form>
+    <div class="row content" style="height:81vh">
+        <div class="col-sm-9">
+            <div id="map" style="height:100%"></div>
+        </div>
+
+        <div class="col-sm-3 search-flats-div">
+
+            <h3 ng-show="locations.length==0">Nothing's found</h3>
+            <div class="row mb-1" ng-repeat="item in locations">
+                <div class="col-md-8">
+                    <a href="/flatdetails">
+                        <img class="w-100" ng-src="{{item.photoURLs[0] || '../../img/flat/noImage.jpg'}}">
+                    </a>
+                </div>
+                <div class="col-md-4">
+                    <a href="/flatdetails">{{item.address}}</a>
+                    <br />
+                    <h5>price: {{item.price}}</h5>
+                    {{item.description}}
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+</div>

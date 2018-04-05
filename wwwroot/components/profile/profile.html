@@ -1,0 +1,97 @@
+
+<link rel="stylesheet" href="../../css/chat.css" />
+
+<div class="container" id="page-top">
+    <div id="sideNav">
+        <a class="navbar-brand js-scroll-trigger">
+            <span class="d-none d-lg-block">
+                <img ng-click="gotoElement('editProfile')" class="img-fluid img-profile rounded-circle mx-auto mb-2"
+                     ng-src="{{globals.currentUser.profileImage.dataURL || '../../img/profile/profile.jpg'}}" />
+            </span>
+        </a>
+        <br />
+        <br />
+        <div class="collapse navbar-collapse navigation" id="navbar-div" ng-include src="'components/profile/profile-nav-bar.html'"></div>
+    </div>
+    <div id="profile-div" class="container-fluid p-0">
+
+        <section class="resume-section d-column" id="messages">
+            <br />
+            <div ng-include src="'components/profile/profile-chat.html'" ng-cloak></div>
+        </section>
+
+        <section class="resume-section flex-column" id="favorites">
+            <br />
+            <div ng-include src="'components/profile/profile-favorites.html'"></div>
+        </section>
+
+        <section class="resume-section flex-column" id="editProfile">
+            <div class="my-auto" ng-include src="'components/profile/profile-edit-form.html'"></div>
+        </section>
+
+        <section class="resume-section flex-column" id="myOffers">
+            <div ng-include src="'components/profile/profile-my-offers.html'"></div>
+        </section>
+
+        <section class="resume-section flex-column nopadding" id="watchDog">
+            <div class="my-auto">
+                <h2 class="mb-5">Skills</h2>
+                <div class="subheading mb-3">Programming Languages &amp; Tools</div>
+                <ul class="list-inline list-icons">
+                    <li class="list-inline-item">
+                        <i class="devicons devicons-html5"></i>
+                    </li>
+                    <li class="list-inline-item">
+                        <i class="devicons devicons-css3"></i>
+                    </li>
+                    <li class="list-inline-item">
+                        <i class="devicons devicons-javascript"></i>
+                    </li>
+                    <li class="list-inline-item">
+                        <i class="devicons devicons-jquery"></i>
+                    </li>
+                    <li class="list-inline-item">
+                        <i class="devicons devicons-sass"></i>
+                    </li>
+                    <li class="list-inline-item">
+                        <i class="devicons devicons-less"></i>
+                    </li>
+                    <li class="list-inline-item">
+                        <i class="devicons devicons-bootstrap"></i>
+                    </li>
+                    <li class="list-inline-item">
+                        <i class="devicons devicons-wordpress"></i>
+                    </li>
+                    <li class="list-inline-item">
+                        <i class="devicons devicons-grunt"></i>
+                    </li>
+                    <li class="list-inline-item">
+                        <i class="devicons devicons-gulp"></i>
+                    </li>
+                    <li class="list-inline-item">
+                        <i class="devicons devicons-npm"></i>
+                    </li>
+                </ul>
+                <div class="subheading mb-3">Workflow</div>
+                <ul class="fa-ul mb-0">
+                    <li>
+                        <i class="fa-li fa fa-check"></i>
+                        Mobile-First, Responsive Design
+                    </li>
+                    <li>
+                        <i class="fa-li fa fa-check"></i>
+                        Cross Browser Testing &amp; Debugging
+                    </li>
+                    <li>
+                        <i class="fa-li fa fa-check"></i>
+                        Cross Functional Teams
+                    </li>
+                    <li>
+                        <i class="fa-li fa fa-check"></i>
+                        Agile Development &amp; Scrum
+                    </li>
+                </ul>
+            </div>
+        </section>
+    </div>
+</div>

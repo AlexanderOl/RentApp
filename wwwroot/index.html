@@ -1,0 +1,90 @@
+﻿<!DOCTYPE html>
+<html lang="en" ng-app="myApp">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Rent App</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" href="lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="lib/angular-material/angular-material.css" />
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="css/custom-controls.css" />
+    <link rel="stylesheet" href="lib/angular-toastr/dist/angular-toastr.min.css" />
+    <link rel="stylesheet" href="lib/font-awesome/css/font-awesome.min.css" />
+
+    <script src="lib/jquery/dist/jquery.min.js"></script>
+    <script src="lib/angular/angular.min.js"></script>
+    <script src="lib/angular-animate/angular-animate.min.js"></script>
+    <script src="lib/angular-route/angular-route.min.js"></script>
+    <script src="lib/angular-cookies/angular-cookies.min.js"></script>
+    <script src="lib/angular-material/angular-material.min.js"></script>
+    <script src="lib/angular-aria/angular-aria.min.js"></script>
+    <script src="lib/angular-toastr/dist/angular-toastr.min.js"></script>
+    <script src="lib/angular-toastr/dist/angular-toastr.tpls.min.js"></script>
+    <script src="lib/popper.js/dist/umd/popper.min.js"></script>
+    <script src="lib/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="lib/angular-base64/angular-base64.min.js"></script>
+
+    <script src="js/bundle.js"></script>
+    <script src="main-module.js"></script>
+
+    <script>
+        if (typeof Promise === 'undefined') {
+            document.write('<script src="js/signalr-clientES5-1.0.0-alpha2-final.js"><\/script>');
+        }
+        else {
+            document.write('<script src="js/signalr-client-1.0.0-alpha2-final.js"><\/script>');
+        }
+    </script>
+
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCPz5tHh4Ud-JwAeIfW47dixWkq8XtyxZE&libraries=places"></script>
+    <script sync defer src="https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js"></script>
+
+    <base href="/">
+</head>
+<body ng-controller="mainCtrl">
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="/">Rent App</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" 
+                    aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarResponsive">
+                <ul class="navbar-nav ml-auto nav navbar-right">
+
+                    <li class="nav-item" ng-show="globals.currentUser">
+                        <a class="nav-link" href="/profile" ng-cloak><b> {{globals.currentUser.name}}'s profile</b></a>
+                        <div class="smallresolution-show" ng-include src="'components/profile/profile-nav-bar.html'"></div>
+                    </li>
+                    <li class="nav-item" ng-show="!globals.currentUser">
+                        <a class="nav-link" href="/login"> Login</a>
+                    </li>
+                    <li class="nav-item" ng-show="!globals.currentUser">
+                        <a class="nav-link" href="/register"> Register</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Page Content -->
+    <div>
+        <div ng-view class="reveal-animation" ng-cloak></div>
+    </div>
+    <!-- Footer -->
+    <footer class="fixed-bottom" ng-show="!isFooterHidden">
+        <br />
+        <br />
+        <br />
+        <div class="footer">
+            <p class="m-0 text-center text-white">Copyright &copy; Your Website 2017</p>
+        </div>
+    </footer>
+</body>
+</html>
+

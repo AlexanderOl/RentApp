@@ -1,0 +1,23 @@
+<link rel="stylesheet" href="../../css/profile-nav.css" />
+<ul class="navbar-nav mainmenu">
+    <li class="nav-item" ng-class="(windowScrollY >= 0 && windowScrollY < favoritesH) ? 'pulse' : ''">
+        <a ng-click="gotoElement('messages')" href="">Messages</a>
+    </li>
+    <li class="nav-item" ng-class="(windowScrollY >= favoritesH && windowScrollY < editProfileH) ? 'pulse' : ''">
+        <a ng-click="gotoElement('favorites')" href="">Favorites</a>
+    </li>
+    <li class="nav-item" ng-class="(windowScrollY >= editProfileH && windowScrollY < myOffersH) ? 'pulse' : ''">
+        <a ng-click="gotoElement('editProfile')" href="">Edit Profile</a>
+    </li>
+    <li class="nav-item" ng-class="(windowScrollY >= myOffersH && windowScrollY < watchDogH) ? 'pulse' : ''">
+        <a ng-click="gotoElement('myOffers')" href="">My Offers</a>
+    </li>
+    
+    <li class="nav-item" ng-class="windowScrollY >= watchDogH ? 'pulse' : ''">
+        <a ng-click="gotoElement('watchDog')" href="">Watch Dog</a>
+    </li>
+    <li class="nav-item">
+        <a ng-click="logout()" href="">Logout</a>
+    </li>
+</ul>
+
