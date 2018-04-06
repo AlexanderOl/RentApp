@@ -1,10 +1,8 @@
 ﻿using RentApp.Models.DbModels;
 using RentApp.Models.Interfaces;
 using RentApp.Models.Structs;
-using RentApp.Utilities;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace RentApp.Models.ResponseModels
 {
@@ -32,23 +30,5 @@ namespace RentApp.Models.ResponseModels
         public bool? WithParking { get; set; }
         public bool? AllowPets { get; set; }
         public bool? AllowChildren { get; set; }
-
-        public OfferFilterResponse(Offer model)
-        {
-            Id = model.Id;
-            Address = model.Address;
-            Description = model.Description;
-            Price = model.Price;
-            var imageUtility = new ImageUtility(PhotoType.Profile);
-
-            PhotoURLs = model.PropertyPhotos.Select(p => p.Url).ToList();
-            Lat = model.Lat;
-            Lng = model.Lng;
-        }
-
-        public static explicit operator OfferFilterResponse(Offer model)
-        {
-            return new OfferFilterResponse(model);
-        }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using RentApp.Models.Cache;
 using RentApp.Models.DbModels;
 using RentApp.Repositories;
+using RentApp.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,7 +23,7 @@ namespace RentApp.Cache
         public UserCache(UserRepository userRepository)
         {
             _cachedItems = userRepository.GetAllAlive()
-                .Select(s => (UserCacheItem)s)
+                .Select(s => AutoMapperUtility.IMapper.Map<UserCacheItem>(s))
                 .ToDictionary(x => x.Id, x => x);
         }
 
@@ -30,11 +31,11 @@ namespace RentApp.Cache
         {
             if (_cachedItems.ContainsKey(user.Id))
             {
-                _cachedItems[user.Id] = (UserCacheItem)user;
+                _cachedItems[user.Id] = AutoMapperUtility.IMapper.Map<UserCacheItem>(user);
             }
             else
             {
-                _cachedItems.Add(user.Id, (UserCacheItem)user);
+                _cachedItems.Add(user.Id, AutoMapperUtility.IMapper.Map<UserCacheItem>(user));
             }
         }
     }

@@ -59,34 +59,5 @@ namespace RentApp.Models.RequestModels
                 _propertyPhotos = value;
             }
         }
-
-
-        public static explicit operator Offer(CreateOfferRequest request)
-        {
-            var model = new Offer();
-            model.Id = request.Id;
-            model.UserId = request.UserId;
-            model.OfferType = request.OfferType;
-            model.PropertyType = request.PropertyType;
-            model.Address = request.Address;
-            model.Lat = request.Lat;
-            model.Lng = request.Lng;
-            model.Price = request.Price;
-            model.RoomsQuantity = request.RoomsQuantity;
-            model.FloorNumber = request.FloorNumber;
-            model.Area = request.Area;
-            model.Payments = request.Payments;
-            model.AvailableFrom = request.AvailableFrom;
-            model.AvailableTill = request.AvailableTill;
-            model.WithFurniture = request.WithFurniture;
-            model.WithBalcony = request.WithBalcony;
-            model.WithParking = request.WithParking;
-            model.AllowPets = request.AllowPets;
-            model.AllowChildren = request.AllowChildren;
-            model.Description = request.Description;
-            model.PropertyPhotos = request.PropertyPhotos;
-
-            return model;
-        }
     }
 }

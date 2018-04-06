@@ -6,6 +6,7 @@ using RentApp.Models.DbModels;
 using RentApp.Models.RequestModels;
 using RentApp.Models.ResponseModels;
 using RentApp.Repositories;
+using RentApp.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -31,7 +32,7 @@ namespace RentApp.Managers
             var messageList = MessageCache.CachedItems.Values
                 .Where(w => w.UserIdFrom == userId || w.UserIdTo == userId)
                 .OrderBy(o => o.CreateDateTime)
-                .Select(x => (MessageResponse)x)
+                .Select(x => AutoMapperUtility.IMapper.Map<MessageResponse>(x))
                 .ToList();
 
 
@@ -44,21 +45,21 @@ namespace RentApp.Managers
             var userList = new List<AuthenticationResponse>();
             foreach (var item in distinctUserIds)
                 if (UserCache.CachedItems.ContainsKey(item))
-                    userList.Add((AuthenticationResponse)UserCache.CachedItems[item]);
+                    userList.Add(AutoMapperUtility.IMapper.Map<AuthenticationResponse>(UserCache.CachedItems[item]));
 
             return new UserMessagesResponse(messageList, userList);
         }
 
         internal async Task<BaseResponse> SendChatMessage(SendMessageRequest messageRequest)
         {
-            var message = messageRequest.CreateDbModel();
+            var message = AutoMapperUtility.IMapper.Map<Message>(messageRequest);
             _messageRepository.Create(message);
 
             UserCache.CachedItems.TryGetValue(message.UserIdTo, out UserCacheItem result);
 
             if (result != null && !string.IsNullOrEmpty(result?.ConnectionId))
                 await _hubContext.Clients.Client(result?.ConnectionId.ToString())
-                     .InvokeAsync("messageSent", (MessageResponse)message);
+                     .InvokeAsync("messageSent", AutoMapperUtility.IMapper.Map<MessageResponse>(message));
 
             return new BaseResponse();
         }
@@ -68,20 +69,20 @@ namespace RentApp.Managers
             if (UserCache.CachedItems.ContainsKey(value))
             {
                 var now = DateTime.Now;
-                UserCache.CachedItems[value].LastEntranceDateTime = now;
-                Task.Factory.StartNew(() => UpdateLastEntranceAsync(now));
+                UserCache.CachedItems[value].LastOnlineDateTime = now;
+                Task.Factory.StartNew(() => UpdateLastOnlineAsync(now));
             }
         }
 
-        private async Task UpdateLastEntranceAsync(DateTime now)
+        private async Task UpdateLastOnlineAsync(DateTime now)
         {
             var minute = 60000;
             await semaphoreSlim.WaitAsync(minute);
             try
             {
                 var result = UserCache.CachedItems.Values
-                    .Where(w => w.LastEntranceDateTime > now.AddMilliseconds(-minute))
-                    .ToDictionary(x => x.Id, x => x.LastEntranceDateTime);
+                    .Where(w => w.LastOnlineDateTime > now.AddMilliseconds(-minute))
+                    .ToDictionary(x => x.Id, x => x.LastOnlineDateTime);
 
                 await _hubContext.Clients.All.InvokeAsync("onlineStatusUpdated", result);
             }

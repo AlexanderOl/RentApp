@@ -22,16 +22,6 @@ namespace RentApp.Managers
             _offerRepository = offerRepository;
         }
 
-        //internal IEnumerable<RealEstateOffer> GetAll()
-        //{
-        //    return _offerRepository.GetAll();
-        //}
-
-        //internal RealEstateOffer GetById(Guid id)
-        //{
-        //    return _offerRepository.GetById(id);
-        //}
-
         internal IEnumerable<OfferFilterResponse> GetByFilter(OfferFilterRequest filter)
         {
             double coordDelta = 0.3;
@@ -56,7 +46,7 @@ namespace RentApp.Managers
                 offers = offers.Where(o => o.Price <= filter.PriceTill);
             }
 
-            return offers.Select(o => (OfferFilterResponse)o);
+            return offers.Select(o => AutoMapperUtility.IMapper.Map< OfferFilterResponse>(o));
         }
 
         internal List<string> CheckImageExist(List<string> imgSource)
@@ -76,7 +66,7 @@ namespace RentApp.Managers
 
         internal BaseResponse Create(CreateOfferRequest item)
         {
-            var offer = (Offer)item;
+            var offer = AutoMapperUtility.IMapper.Map<Offer>(item);
             offer.IsAlive = true;
             _offerRepository.Create(offer);
 

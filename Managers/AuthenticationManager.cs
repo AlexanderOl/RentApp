@@ -70,9 +70,9 @@ namespace RentApp.Managers
             if (foundUser != null)
             {
                 foundUser.IsActivated = true;
-                foundUser.LastEntranceDateTime = DateTime.Now;
+                foundUser.LastOnlineDateTime = DateTime.Now;
                 _userRepository.Update(foundUser.CreateDbModel());
-                return (AuthenticationResponse)foundUser;
+                return AutoMapperUtility.IMapper.Map<AuthenticationResponse>(foundUser);
             }
 
             return new BaseResponse
@@ -94,9 +94,9 @@ namespace RentApp.Managers
             {
                 if (foundUser.IsActivated)
                 {
-                    foundUser.LastEntranceDateTime = DateTime.Now;
+                    foundUser.LastOnlineDateTime = DateTime.Now;
                     _userRepository.Update(foundUser.CreateDbModel());
-                    return (AuthenticationResponse)foundUser;
+                    return AutoMapperUtility.IMapper.Map<AuthenticationResponse>(foundUser);
                 }
                 else
                     return new BaseResponse

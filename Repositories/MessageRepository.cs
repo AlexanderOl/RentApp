@@ -24,14 +24,15 @@ namespace RentApp.Repositories
             }
         }
 
-        internal void Create(Message addItem)
+        internal void Create(Message item)
         {
+            item.IsAlive = true;
             using (_context)
             {
-                _context.Messages.Add(addItem);
+                _context.Messages.Add(item);
                 _context.SaveChanges();
             }
-            MessageCache.AddOrUpdate(addItem);
+            MessageCache.AddOrUpdate(item);
         }
 
         internal void Update(Message updateItem)

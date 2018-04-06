@@ -94,7 +94,7 @@ namespace RentApp.Managers
 
             _userRepository.Update(foundUser.CreateDbModel());
 
-            return (AuthenticationResponse)UserCache.CachedItems[item.Id];
+            return AutoMapperUtility.IMapper.Map<AuthenticationResponse>(UserCache.CachedItems[item.Id]);
         }
 
         internal bool CheckEmail(string value)

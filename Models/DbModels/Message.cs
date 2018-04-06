@@ -1,9 +1,10 @@
-﻿using System;
+﻿using RentApp.Models.Interfaces;
+using System;
 using System.ComponentModel.DataAnnotations;
 
 namespace RentApp.Models.DbModels
 {
-    public class Message
+    public class Message : IMessage
     {
         [Key]
         public Guid Id { get; set; }
