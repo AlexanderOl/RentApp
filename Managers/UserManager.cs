@@ -33,7 +33,7 @@ namespace RentApp.Managers
                 };
             }
 
-            var newUser = (User)item;
+            var newUser = AutoMapperUtility.IMapper.Map<User>(item);
 
             _userRepository.Create(newUser);
 

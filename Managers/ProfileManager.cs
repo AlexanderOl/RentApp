@@ -15,7 +15,7 @@ using System.Threading.Tasks;
 namespace RentApp.Managers
 {
     public class ProfileManager
-    {
+    { 
         MessageRepository _messageRepository;
         IHubContext<MainHub> _hubContext;
         static SemaphoreSlim semaphoreSlim = new SemaphoreSlim(1, 1);
