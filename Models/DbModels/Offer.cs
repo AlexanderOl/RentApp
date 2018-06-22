@@ -2,6 +2,7 @@
 using RentApp.Models.Structs;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace RentApp.Models.DbModels
 {

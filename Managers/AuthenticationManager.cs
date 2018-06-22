@@ -32,7 +32,7 @@ namespace RentApp.Managers
                 var emailManager = new EmailUtility(foundUser);
                 emailManager.SendActivationEmail();
 
-                _userRepository.Update(foundUser.CreateDbModel());
+                _userRepository.Update(AutoMapperUtility.IMapper.Map<User>(foundUser));
 
                 return new BaseResponse();
             }
@@ -59,7 +59,7 @@ namespace RentApp.Managers
                 var emailManager = new EmailUtility(foundUser);
                 emailManager.SendNewPasswordForUser();
 
-                _userRepository.Update(foundUser.CreateDbModel());
+                _userRepository.Update(AutoMapperUtility.IMapper.Map<User>(foundUser));
             }
         }
         internal BaseResponse ActivateAccountByGuid(Guid value)
@@ -71,7 +71,7 @@ namespace RentApp.Managers
             {
                 foundUser.IsActivated = true;
                 foundUser.LastOnlineDateTime = DateTime.Now;
-                _userRepository.Update(foundUser.CreateDbModel());
+                _userRepository.Update(AutoMapperUtility.IMapper.Map<User>(foundUser));
                 return AutoMapperUtility.IMapper.Map<AuthenticationResponse>(foundUser);
             }
 
@@ -95,7 +95,7 @@ namespace RentApp.Managers
                 if (foundUser.IsActivated)
                 {
                     foundUser.LastOnlineDateTime = DateTime.Now;
-                    _userRepository.Update(foundUser.CreateDbModel());
+                    _userRepository.Update(AutoMapperUtility.IMapper.Map<User>(foundUser));
                     return AutoMapperUtility.IMapper.Map<AuthenticationResponse>(foundUser);
                 }
                 else

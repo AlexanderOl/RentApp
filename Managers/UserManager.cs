@@ -92,7 +92,7 @@ namespace RentApp.Managers
             foundUser.Phonenumber = item.Phonenumber;
             foundUser.ProfileImageId = imageId;
 
-            _userRepository.Update(foundUser.CreateDbModel());
+            _userRepository.Update(AutoMapperUtility.IMapper.Map<User>(foundUser));
 
             return AutoMapperUtility.IMapper.Map<AuthenticationResponse>(UserCache.CachedItems[item.Id]);
         }

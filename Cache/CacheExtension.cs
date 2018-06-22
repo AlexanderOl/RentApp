@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
+using RentApp.Models.DbModels;
 using RentApp.Repositories;
+using RentApp.Utilities;
 using System;
 using System.Linq;
 using System.Threading;
@@ -38,7 +40,7 @@ namespace RentApp.Cache
                 using (var serviceScope = app.ApplicationServices.CreateScope())
                 {
                     var userRepository = serviceScope.ServiceProvider.GetRequiredService<UserRepository>();
-                    var result = UserCache.CachedItems.Values.Select(s => s.CreateDbModel());
+                    var result = UserCache.CachedItems.Values.Select(s => AutoMapperUtility.IMapper.Map<User>(s));
                     userRepository.Update(result);
                 }
             }

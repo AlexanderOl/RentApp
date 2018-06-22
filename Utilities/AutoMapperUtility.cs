@@ -23,6 +23,7 @@ namespace RentApp.Utilities
             {
                 cfg.CreateMap<CreateUserRequest, User>();
                 cfg.CreateMap<User, UserCacheItem>();
+                cfg.CreateMap<UserCacheItem, User>();
                 cfg.CreateMap<UserCacheItem, AuthenticationResponse>()
                     .ForMember(dest => dest.Name,
                                 map => map.MapFrom(source => source.Firstname + " " + source.Lastname))

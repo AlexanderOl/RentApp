@@ -22,23 +22,5 @@ namespace RentApp.Models.Cache
 
         //Not Mapped
         public string ConnectionId { get; set; }
-
-        public User CreateDbModel()
-        {
-            var user = new User();
-            user.Id = Id;
-            user.Email = Email;
-            user.Phonenumber = Phonenumber;
-            user.Firstname = Firstname;
-            user.Lastname = Lastname;
-            user.Password = Password;
-            user.ProfileImageId = ProfileImageId;
-            user.ActivationCode = ActivationCode;
-            user.IsAlive = IsAlive;
-            user.IsActivated = IsActivated;
-            user.IsAlive = IsAlive;
-            user.LastOnlineDateTime = LastOnlineDateTime;
-            return user;
-        }
     }
 }
